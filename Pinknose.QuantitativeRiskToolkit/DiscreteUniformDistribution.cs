@@ -58,12 +58,13 @@ namespace Pinknose.QuantitativeRiskToolkit
             Max = max;
         }
 
-        public DiscreteUniformDistribution(int min, int max, int randomSeed) : this(min, max)
+        public DiscreteUniformDistribution(QrtValue min, QrtValue max, int randomSeed) : this(min, max)
         {
             RandomSeed = randomSeed;
         }
 
         [JsonProperty]
+        [JsonRequired]
         public QrtValue Min 
         { 
             get => _min;
@@ -81,6 +82,7 @@ namespace Pinknose.QuantitativeRiskToolkit
         }
 
         [JsonProperty]
+        [JsonRequired]
         public QrtValue Max 
         { 
             get => _max;
