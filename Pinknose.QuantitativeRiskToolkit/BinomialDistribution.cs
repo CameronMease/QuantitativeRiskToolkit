@@ -36,6 +36,12 @@ namespace Pinknose.QuantitativeRiskToolkit
         {
         }
 
+        public BinomialDistribution(QrtValue numberOfTrials, QrtValue Probability)
+        {
+            throw new NotImplementedException();
+        }
+        
+
         [JsonProperty]
         public double Probability
         {
