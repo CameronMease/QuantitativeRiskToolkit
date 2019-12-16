@@ -21,10 +21,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+
 
 namespace Pinknose.QuantitativeRiskToolkit.JsonConverters
 {
@@ -80,10 +82,31 @@ namespace Pinknose.QuantitativeRiskToolkit.JsonConverters
                     distribution = (Distribution)constructor.Invoke(new object[] { distributionGuid });
                 }
 
-                serializer.Populate(reader, distribution);
-
+                //serializer.Populate(reader, distribution);
+                PopulateDistribution(jToken, distribution, serializer);
 
                 return distribution;
+            }
+        }
+
+        private static void PopulateDistribution(JToken token, Distribution distribution, JsonSerializer serializer)
+        {
+            Type distrType = distribution.GetType();
+
+            var properties = distrType.GetProperties().Where(p => 
+                p.CustomAttributes.Any(ca => ca.AttributeType == typeof(JsonPropertyAttribute)));
+
+            foreach (var property in properties)
+            {
+                if (property.CanWrite)
+                {
+                    var jsonPropertyAttribute = (JsonPropertyAttribute)property.GetCustomAttribute(typeof(JsonPropertyAttribute));
+                    var jsonTokenName = jsonPropertyAttribute.PropertyName ?? property.Name;
+
+                    JToken propToken = token[jsonTokenName];
+                    var value = propToken.ToObject(property.PropertyType, serializer);
+                    property.SetValue(distribution, value);
+                }
             }
         }
 
