@@ -42,28 +42,29 @@ namespace Pinknose.QuantitativeRiskToolkit
             {
                 if (IsDistribution && _distributionValue == null)
                 {
-                    _distributionValue = Simulation.GetDistribution(DistributionGuid);
+                    if (Simulation.DistributionExists(DistributionGuid))
+                    {
+                        _distributionValue = Simulation.GetDistribution(DistributionGuid);
+                    }
+                    else
+                    {
+                        throw new KeyNotFoundException($"Distribution with GUID of {DistributionGuid} could not be found.");
+                    }
                 }
                 return _distributionValue;
             }
-            protected set => _distributionValue = value;
+            protected set
+            {
+                DistributionGuid = value.Guid;
+                _distributionValue = value;
+            }
         }
 
         [JsonProperty]
         internal Guid DistributionGuid 
         {
-            get
-            {
-                if (DistributionValue == null)
-                {
-                    return _distributionGuid;
-                }
-                else
-                {
-                    return DistributionValue.Guid;
-                }
-            }
-            set => _distributionGuid = value; 
+            get;
+            set;  
         }
 
         public static implicit operator QrtValue(double value)
@@ -111,7 +112,6 @@ namespace Pinknose.QuantitativeRiskToolkit
 
         private Vector<double> vectorOfScalars;
         private Distribution _distributionValue = null;
-        private Guid _distributionGuid;
 
         [JsonIgnore]
         public Vector<double> RawVector
