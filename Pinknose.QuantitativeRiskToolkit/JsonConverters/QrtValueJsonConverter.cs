@@ -50,7 +50,8 @@ namespace Pinknose.QuantitativeRiskToolkit.JsonConverters
             }
             else
             {
-                qrtValue.DistributionGuid = new Guid(jToken[nameof(QrtValue.DistributionGuid)].Value<string>());
+                string guidString = jToken[nameof(QrtValue.DistributionGuid)].Value<string>();
+                qrtValue.DistributionGuid = new Guid(guidString);
             }            
             
             return qrtValue;
