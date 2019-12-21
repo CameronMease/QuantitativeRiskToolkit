@@ -113,7 +113,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             distr.Probability = 0;
             distr.Probability = 1;
 
-            Assert.IsTrue(distr.ContrainedToInt);
+            Assert.IsTrue(distr.ConstrainedToInt);
 
             distr = new BernoulliDistribution();
             Assert.AreEqual(1, distr.Probability.ScalarValue);
@@ -272,7 +272,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             Assert.AreEqual(distr.StandardDeviation, resampledDist.StandardDeviation, 10);
             Assert.AreEqual(distr.Variance, resampledDist.Variance, 10);
 
-            Assert.AreEqual(distr.ContrainedToInt, resampledDist.ContrainedToInt);
+            Assert.AreEqual(distr.ConstrainedToInt, resampledDist.ConstrainedToInt);
 
             Assert.IsTrue(
                 distr.GetResult()[0] != resampledDist.GetResult()[0] ||

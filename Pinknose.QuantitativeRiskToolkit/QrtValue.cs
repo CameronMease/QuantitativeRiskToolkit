@@ -104,7 +104,7 @@ namespace Pinknose.QuantitativeRiskToolkit
             {
                 DistributionValue = distribution,
                 IsDistribution = true,
-                ConstrainedToInt = distribution.ContrainedToInt
+                ConstrainedToInt = distribution.ConstrainedToInt
             };
 
             return obj;

@@ -31,7 +31,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             var newVal = JObject.Parse(json).ToObject<DiscreteUniformDistribution>(serializer);
 
             Assert.AreEqual(val.Guid, newVal.Guid);
-            Assert.AreEqual(val.ContrainedToInt, newVal.ContrainedToInt);
+            Assert.AreEqual(val.ConstrainedToInt, newVal.ConstrainedToInt);
             Assert.AreEqual(val.RandomSeed, newVal.RandomSeed);
             Assert.AreEqual(val.Min.ScalarValue, newVal.Min.ScalarValue);
             Assert.AreEqual(val.Minimum, newVal.Minimum);
@@ -61,7 +61,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             var newVal = JObject.Parse(json).ToObject<ContinuousUniformDistribution>(serializer);
 
             Assert.AreEqual(val.Guid, newVal.Guid);
-            Assert.AreEqual(val.ContrainedToInt, newVal.ContrainedToInt);
+            Assert.AreEqual(val.ConstrainedToInt, newVal.ConstrainedToInt);
             Assert.AreEqual(val.RandomSeed, newVal.RandomSeed);
             Assert.AreEqual(val.Min.ScalarValue, newVal.Min.ScalarValue);
             Assert.AreEqual(val.Minimum, newVal.Minimum);
@@ -91,7 +91,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             var newVal = JObject.Parse(json).ToObject<BernoulliDistribution>(serializer);
 
             Assert.AreEqual(val.Guid, newVal.Guid);
-            Assert.AreEqual(val.ContrainedToInt, newVal.ContrainedToInt);
+            Assert.AreEqual(val.ConstrainedToInt, newVal.ConstrainedToInt);
             Assert.AreEqual(val.RandomSeed, newVal.RandomSeed);
             Assert.AreEqual(val.Probability.ScalarValue, newVal.Probability.ScalarValue);
             Assert.AreEqual(val.Minimum, newVal.Minimum);
@@ -120,7 +120,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             var newVal = JObject.Parse(json).ToObject<PertDistribution>(serializer);
 
             Assert.AreEqual(val.Guid, newVal.Guid);
-            Assert.AreEqual(val.ContrainedToInt, newVal.ContrainedToInt);
+            Assert.AreEqual(val.ConstrainedToInt, newVal.ConstrainedToInt);
             Assert.AreEqual(val.RandomSeed, newVal.RandomSeed);
             Assert.AreEqual(val.Min.ScalarValue, newVal.Min.ScalarValue);
             Assert.AreEqual(val.MostLikely.ScalarValue, newVal.MostLikely.ScalarValue);
@@ -177,6 +177,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             Assert.AreEqual(val.ScalarValue, newVal.ScalarValue);           
         }
 
+        
         [TestMethod()]
         public void ScalarDoubleQrtValue()
         {
@@ -190,6 +191,37 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             Assert.AreEqual(val.ConstrainedToInt, newVal.ConstrainedToInt);
             Assert.AreEqual(val.IsDistribution, newVal.IsDistribution);
             Assert.AreEqual(val.ScalarValue, newVal.ScalarValue);
+        }
+
+        [TestMethod()]
+        public void DistributionQrtValue()
+        {
+            Simulation.NumberOfSamples = 5;
+            JsonSerializer serializer = JsonSerializer.Create(JsonSettings.SerializerSettings);
+
+            string name = "My Distribution";
+
+            var distr = new DiscreteUniformDistribution(1, 5, 0)
+            {
+                Name = name
+            };
+
+            QrtValue qrtValue = distr;
+
+            string distrJson = JObject.FromObject(distr, serializer).ToString();
+            string qrtJson = JObject.FromObject(qrtValue, serializer).ToString();
+            Simulation.ClearDistributionList();
+
+            var newDistr = JObject.Parse(distrJson).ToObject<DiscreteUniformDistribution>(serializer);
+            var newQrtValue = JObject.Parse(qrtJson).ToObject<QrtValue>(serializer);            
+
+            Assert.AreEqual(distr.Guid, newQrtValue.DistributionValue.Guid);
+            Assert.AreEqual(distr.ConstrainedToInt, newQrtValue.DistributionValue.ConstrainedToInt);
+            Assert.AreEqual(distr.Minimum, newQrtValue.Minimum);
+            Assert.AreEqual(distr.Maximum, newQrtValue.Maximum);
+
+            Assert.AreEqual(distr.ConstrainedToInt, newQrtValue.ConstrainedToInt);
+            Assert.IsTrue(newQrtValue.IsDistribution);
         }
     }
 }

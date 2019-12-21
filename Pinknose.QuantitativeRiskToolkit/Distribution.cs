@@ -154,7 +154,7 @@ namespace Pinknose.QuantitativeRiskToolkit
         */
         
         [JsonProperty]
-        public abstract bool ContrainedToInt { get; }
+        public abstract bool ConstrainedToInt { get; }
 
         ////////////////////////////////////////////////////////////
         // Operator Overloads

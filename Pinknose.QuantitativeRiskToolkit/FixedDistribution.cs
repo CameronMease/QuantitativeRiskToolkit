@@ -32,7 +32,7 @@ namespace Pinknose.QuantitativeRiskToolkit
             SetCalculationsUpToDate();
         }
 
-        public override bool ContrainedToInt => false;
+        public override bool ConstrainedToInt => false;
 
         private Vector<double> vector;
 

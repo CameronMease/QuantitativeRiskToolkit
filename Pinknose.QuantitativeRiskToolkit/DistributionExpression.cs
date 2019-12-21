@@ -44,7 +44,7 @@ namespace Pinknose.QuantitativeRiskToolkit
             {
                 obj.RecalculationRequired += Obj_RecalculationRequired;
 
-                if (!obj.ContrainedToInt)
+                if (!obj.ConstrainedToInt)
                 {
                     _constrainedToInt = false;
                 }
@@ -73,6 +73,6 @@ namespace Pinknose.QuantitativeRiskToolkit
         private bool _constrainedToInt;
 
         [JsonProperty]
-        public override bool ContrainedToInt => _constrainedToInt;
+        public override bool ConstrainedToInt => _constrainedToInt;
     }
 }

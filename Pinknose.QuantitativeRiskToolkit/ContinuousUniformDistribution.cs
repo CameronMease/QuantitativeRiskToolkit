@@ -75,7 +75,7 @@ namespace Pinknose.QuantitativeRiskToolkit
         }
 
         [JsonProperty]
-        public override bool ContrainedToInt => false;
+        public override bool ConstrainedToInt => false;
 
         protected override Vector<double> ComputeResult()
         {

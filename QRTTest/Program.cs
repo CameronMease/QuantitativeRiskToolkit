@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using UnitsNet;
 
 namespace QRTTest
 {
@@ -13,6 +14,9 @@ namespace QRTTest
     {
         static void Main(string[] args)
         {
+            var duhh1 = Speed.FromFeetPerSecond(6);       
+
+
             Simulation.NumberOfSamples = 5;
             Simulation.SeedRequestCount = 8;
             Simulation.RandomOrgApiKey = "e0cc07b7-96b2-4d68-a71a-905cea205c9f";

@@ -35,7 +35,6 @@ namespace Pinknose.QuantitativeRiskToolkit
 
         public PertDistribution() : base()
         {
-
         }
 
         public PertDistribution(QrtValue min, QrtValue mostLikely, QrtValue max) : base()
@@ -94,7 +93,7 @@ namespace Pinknose.QuantitativeRiskToolkit
         /// Algorithm adapted from: https://www.riskamp.com/beta-pert
         /// </remarks>
         [JsonProperty]
-        public override bool ContrainedToInt => false;
+        public override bool ConstrainedToInt => false;
 
         protected override Vector<double> ComputeResult()
         {

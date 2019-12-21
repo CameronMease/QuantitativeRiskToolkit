@@ -60,7 +60,7 @@ namespace Pinknose.QuantitativeRiskToolkit
         private Distribution linkedDistribution;
         private Expression recalcExpression;
 
-        public override bool ContrainedToInt => linkedDistribution.ContrainedToInt;
+        public override bool ConstrainedToInt => linkedDistribution.ConstrainedToInt;
 
         protected override Vector<double> ComputeResult()
         {

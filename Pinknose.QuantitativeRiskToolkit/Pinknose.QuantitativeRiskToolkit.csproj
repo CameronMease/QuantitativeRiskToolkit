@@ -14,14 +14,12 @@
     <Compile Remove="JsonConverters\BinaryExpressionJsonConverter.cs" />
     <Compile Remove="JsonConverters\ConstantExpressionJsonConverter.cs" />
     <Compile Remove="JsonConverters\MethodCallExpressionJsonConverter.cs" />
-    <Compile Remove="QrtValueGeneric.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="JsonConverters\BinaryExpressionJsonConverter.cs" />
     <None Include="JsonConverters\ConstantExpressionJsonConverter.cs" />
     <None Include="JsonConverters\MethodCallExpressionJsonConverter.cs" />
-    <None Include="QrtValueGeneric.cs" />
   </ItemGroup>
 
  
