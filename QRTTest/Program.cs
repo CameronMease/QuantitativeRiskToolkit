@@ -14,30 +14,22 @@ namespace QRTTest
     {
         static void Main(string[] args)
         {
-            var duhh1 = Speed.FromFeetPerSecond(6);       
-
-
-            Simulation.NumberOfSamples = 5;
+            //Simulation.NumberOfSamples = 5;
             Simulation.SeedRequestCount = 8;
             Simulation.RandomOrgApiKey = "e0cc07b7-96b2-4d68-a71a-905cea205c9f";
 
             JsonSerializer serializer = JsonSerializer.Create(JsonSettings.SerializerSettings);
 
-            var d1 = new DiscreteUniformDistribution(1,5, 0);
-            var d2 = new DiscreteUniformDistribution(6, 10, 0);
-            var d3 = new DiscreteUniformDistribution(d1, d2, 0);
+            var d = new EventFrequencyDistribution(1)
+            {
+                FrequencyEstimate = new ContinuousUniformDistribution(0, 10.5, 0)
+            };
 
-            string jsonD1 = JObject.FromObject(d1, serializer).ToString();
-            string jsonD2 = JObject.FromObject(d2, serializer).ToString();
-            string jsonD3 = JObject.FromObject(d3, serializer).ToString();
+            var r = d.GetResult();
 
-            Simulation.ClearDistributionList();
+            d.ProbabilityOfOccurence = .5;
 
-            var newD1 = JObject.Parse(jsonD1).ToObject<DiscreteUniformDistribution>(serializer);
-            var newD2 = JObject.Parse(jsonD2).ToObject<DiscreteUniformDistribution>(serializer);
-            var newVal = JObject.Parse(jsonD3).ToObject<DiscreteUniformDistribution>(serializer);
-            var duhh = newVal.Min.DistributionValue;
-          
+            r = d.GetResult();
         }
 
         static void PrintVector(Distribution est) 

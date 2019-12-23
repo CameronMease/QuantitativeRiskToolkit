@@ -298,6 +298,31 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
         }
 
         [TestMethod]
+        public void SimulatedOccurrenceDistribution()
+        {
+            ContinuousUniformDistribution estimate = new ContinuousUniformDistribution(.5, 1.5, 0);
+            EventFrequencyDistribution simulation = new EventFrequencyDistribution(1)
+            {
+                FrequencyEstimate = estimate
+            };
+
+            Assert.AreEqual(simulation.Minimum, 0.0);
+            Assert.AreEqual(simulation.Maximum, 2.0);
+            //Assert.AreEqual(simulation.Mean, .7511, 0.0001);
+            Assert.AreEqual(simulation.Median, 1);
+
+            simulation = new EventFrequencyDistribution(1)
+            {
+                FrequencyEstimate = 1.5
+            };
+
+            Assert.AreEqual(simulation.Minimum, 1.0);
+            Assert.AreEqual(simulation.Maximum, 2.0);
+            //Assert.AreEqual(simulation.Mean, .7511, 0.0001);
+            //Assert.AreEqual(simulation.Median, 1);
+        }
+
+        [TestMethod]
         public void TestResultsCache()
         {
             var stopwatch = new Stopwatch();
@@ -318,6 +343,7 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
             Assert.IsTrue(test2Milliseconds < 0.1 * test1Milliseconds);
         }
 
+        /*
         [TestMethod]
         public void Distribution_ToString()
         {
@@ -339,5 +365,6 @@ namespace Pinknose.QuantitativeRiskToolkit.Tests
 
             File.Delete(filePath);
         }
+        */
     }
 }
